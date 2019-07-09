@@ -8,8 +8,11 @@ body {
     background: -webkit-linear-gradient(to top, #434343, #000000) fixed;  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #434343, #000000) fixed; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.container {
+.accordion {
     margin-top: 100px;
+    /*margin-left: 50px;*/
+    /*align-content: center;*/
+    /*text-align: center;*/
     /*display: inline-block;*/
     /*height: 100%;*/
     /*width: 100%;*/
