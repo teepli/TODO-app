@@ -4,7 +4,10 @@ import fi.academy.todoaapp.dao.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todo")
@@ -33,8 +36,10 @@ public class TodoController {
     }
 
     @PostMapping("")
-    public void postTodo(@RequestBody Todo todo) {
-        dao.addTodo(todo);
+    public List<Todo> postTodo(@RequestBody Todo todo) {
+        todo.setId(dao.addTodo(todo));
+
+        return Arrays.asList(todo);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +48,10 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public void updateTodo(@PathVariable(name = "id", required = true) int id,
-                           @RequestBody Todo todo) {
-        dao.editTodo(id, todo);
+    public List<Todo> updateTodo(@PathVariable(name = "id", required = true) int id,
+                                 @RequestBody Todo todo) {
+            dao.editTodo(id, todo);
+            return Arrays.asList(todo);
+
     }
 }
