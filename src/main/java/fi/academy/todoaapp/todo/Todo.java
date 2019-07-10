@@ -13,15 +13,19 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String subject, String description) {
-        this.subject = subject;
-        this.description = description;
-    }
-
-    public Todo(String subject, String description, Date duedate) {
+    public Todo(int id, String subject, String description, Date duedate, boolean finished) {
+        this.id = id;
         this.subject = subject;
         this.description = description;
         this.duedate = duedate;
+        this.finished = finished;
+    }
+
+    public Todo(String subject, String description, Date duedate, boolean finished) {
+        this.subject = subject;
+        this.description = description;
+        this.duedate = duedate;
+        this.finished = finished;
     }
 
     public String getSubject() {

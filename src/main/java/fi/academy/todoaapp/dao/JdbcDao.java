@@ -95,13 +95,13 @@ public class JdbcDao implements Dao {
 
     @Override
     public boolean editTodo(int id, Todo todo) {
-        String sql = "UPDATE todo SET topic = ?, description = ?, finished = ? WHERE id = ?";
+        String sql = "UPDATE todo SET topic = ?, description = ?, duedate = ?, finished = ? WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, todo.getSubject());
             pstmt.setString(2, todo.getDescription());
-            pstmt.setBoolean(3, todo.isFinished());
-//            pstmt.setDate(3, todo.getDuedate());
-            pstmt.setInt(4, id);
+            pstmt.setDate(3, todo.getDuedate());
+            pstmt.setBoolean(4, todo.isFinished());
+            pstmt.setInt(5, id);
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {

@@ -50,6 +50,9 @@ function renderToPage(response) {
             '<div id="collapse' + response[i].id + '" class="collapse" aria-labelledby="heading' + response[i].id + '" data-parent="#accordion">' +
             '<div class="card-body" contenteditable="true" id="description' + response[i].id + '">' +
             response[i].description +
+            '<div class="form-group mx-sm-3 mb-2">' +
+            '<input class="form-control" type="date" value="' + response[i].duedate + '" id="date' + response[i].id + '">' +
+            '</div>' +
             '</div> </div> </div>';
     }
 }
@@ -92,18 +95,20 @@ function modifyTodo(id) {
     let subjectField = document.getElementById("subject" + id);
     let descriptionField = document.getElementById("description" + id);
     let checkbox = document.getElementById("check" + id);
-    console.log("checkbox");
-    console.log(checkbox);
+    let date = document.getElementById("date" + id);
+
     axios
         .put('/api/todo/' + id, {
             subject: subjectField.innerText,
             description: descriptionField.innerText,
-            finished: checkbox.value
+            finished: checkbox.value,
+            duedate: date.value,
+            id: id
         })
         .then(response => {
-            // subjectField.parentNode.parentNode.parentNode.remove();
+            subjectField.parentNode.parentNode.parentNode.remove();
 
-            // renderToPage(response.data);
+            renderToPage(response.data);
             console.log(response)
         })
         .catch(function (error) {
@@ -134,6 +139,10 @@ function toggleButtonFalse(id) {
     // checkbox.ontoggle = 'toggleButtonTrue(id)';
     modifyTodo(id);
     // console.log(checkbox.value)
+
+}
+
+function handleDateChange(div, id) {
 
 }
 
