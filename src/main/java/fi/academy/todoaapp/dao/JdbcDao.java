@@ -81,20 +81,21 @@ public class JdbcDao implements Dao {
     }
 
     @Override
-    public boolean deleteTodo(int id) {
+    public Todo deleteTodo(int id) {
         String sql = "DELETE FROM todo WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            Optional<Todo> toDelete = getOneTodo(id);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
-            return true;
+            return toDelete.get();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean editTodo(int id, Todo todo) {
+    public int editTodo(int id, Todo todo) {
         String sql = "UPDATE todo SET topic = ?, description = ?, duedate = ?, finished = ? WHERE id = ?";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, todo.getSubject());
@@ -102,12 +103,12 @@ public class JdbcDao implements Dao {
             pstmt.setDate(3, todo.getDuedate());
             pstmt.setBoolean(4, todo.isFinished());
             pstmt.setInt(5, id);
-            pstmt.executeUpdate();
-            return true;
+            return pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
 
     public Todo handleTodo(ResultSet rs) throws SQLException {

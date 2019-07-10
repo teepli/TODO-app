@@ -10,7 +10,7 @@ public interface Dao {
     List<Todo> getTodos();
     Optional<Todo> getOneTodo(int id);
     int addTodo(Todo todo);
-    boolean deleteTodo(int id);
-    boolean editTodo(int id, Todo todo);
+    Todo deleteTodo(int id);
+    int editTodo(int id, Todo todo);
     void test();
 }
