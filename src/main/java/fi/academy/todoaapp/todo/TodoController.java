@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/todo")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
 
     private Dao dao;
@@ -73,8 +74,9 @@ public class TodoController {
 //        dao.editTodo(id, todo);
 //        return todo;
         int changedRows = dao.editTodo(id, todo);
+        System.out.println(changedRows);
         if (changedRows != 0) {
-//            tiedot.setId(id);
+            todo.setId(id);
             return ResponseEntity.ok(todo);
         }
         return ResponseEntity
